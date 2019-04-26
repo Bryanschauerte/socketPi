@@ -1,5 +1,6 @@
 import openSocket from "socket.io-client";
-const socket = openSocket("http://localhost:4000");
+const address = `${window.location.protocol}//${window.location.hostname}:4000`
+const socket = openSocket(address)
 
 
 function subscribeToThing(thing, cb){
