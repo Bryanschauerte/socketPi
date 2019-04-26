@@ -1,0 +1,61 @@
+.House-view {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+.Yard-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 0;
+  height: 0;
+  border-left: 300px solid transparent;
+  border-right: 300px solid transparent;
+  border-bottom: 450px solid rgb(156, 238, 174);
+}
+.back{
+  margin: 10px;
+  border: 1px solid green;
+}
+.front{
+  margin: 10px;
+  border: 1px solid blanchedalmond;
+}
+
+.House-container {
+  height: 150px;
+  width: 100px;
+  position: absolute;
+  top: 200px;
+  right: -50px;
+background-color: rgb(128, 107, 107);
+}
+
+.House-section {
+  border: 1px solid blue;
+  width: 30px;
+  height: 30px;
+}
+.Sprinklers {
+display: flex;
+flex-direction: column;
+
+}
+.Section-one{
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  background-color: rebeccapurple;
+}
+.Section-two{
+  position: absolute;
+
+  left: 130px;
+  background-color: rgb(86, 71, 100);
+}
+.Section-three{
+  position: absolute;
+  top: 130px;
+  background-color: rgb(51, 99, 153);
+}
