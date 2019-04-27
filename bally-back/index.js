@@ -10,11 +10,11 @@ const Gpio = require('pigpio').Gpio;
 // sprinklers
 
 const activatedPins = {
-  closeBack: 20,
-  farBack: 21,
-  streetLeft: 16,
-  streetRight: 12,
-  mailBoxStrip: 26
+["Close Back"]: 20,
+  "Far Back": 21,
+  "Street Left": 16,
+  "Street Right": 12,
+  "MailBox Strip": 26
   // pins
 }
 const joyStick ={
@@ -31,13 +31,6 @@ server.listen(port, () => {
   console.log("Server listening at port %d", port);
 });
 
-let sprinkerObject ={
-  "Close Back": false,
-  "Far Back": false,
-  "Street Left": false,
-  "Street Right": false,
-  "MailBox Strip": false
-}
 
 // get pins ready 
 const keys = Object.keys(activatedPins)
@@ -50,7 +43,7 @@ function getStatus(){
   const keys = Object.keys(activatedPins)
   const obj = {}
   keys.map(k => {
-    pbj.k = activatedPins[k].digitalRead() === 0
+    obj.k = activatedPins[k].digitalRead() !== 0
 
   })
   return obj
@@ -72,67 +65,67 @@ io.on("connection", socket => {
 
   })
   socket.on("Close Back", newStatus =>{
-    const turnOff = newStatus === false;
+    const turnOff = newStatus !== false;
     if(turnOff){
-      return activatedPins.closeBack.digitalWrite(0)
+      return activatedPins["Close Back"].digitalWrite(0)
     }
     const sprinkerStatus = getStatus()
     socket.emit("sprinkler status", sprinkerStatus);
 
-    return activatedPins.closeBack.digitalWrite(1)
+    return activatedPins["Close Back"].digitalWrite(1)
 
   })
   socket.on("Far Back", newStatus => {
 
-    const turnOff = newStatus === false;
+    const turnOff = newStatus !== false;
     if (turnOff) {
-      return activatedPins.farBack.digitalWrite(0)
+      return activatedPins["Far Back"].digitalWrite(0)
     }
     const sprinkerStatus = getStatus()
     socket.emit("sprinkler status", sprinkerStatus);
 
-    return activatedPins.farBack.digitalWrite(1)
+    return activatedPins["Far Back"].digitalWrite(1)
 
   })
   socket.on("Street Left", newStatus => {
 
-    const turnOff = newStatus === false;
+    const turnOff = newStatus !== false;
     if (turnOff) {
-      return activatedPins.streetLeft.digitalWrite(0)
+      return activatedPins["Street Left"].digitalWrite(0)
     }
     const sprinkerStatus = getStatus()
     socket.emit("sprinkler status", sprinkerStatus);
 
-    return activatedPins.streetLeft.digitalWrite(1)
+    return activatedPins["Street Left"].digitalWrite(1)
 
   })
   socket.on("Street Right", newStatus => {
 
-    const turnOff = newStatus === false;
+    const turnOff = newStatus !== false;
     if (turnOff) {
-      return activatedPins.streetRight.digitalWrite(0)
+      return activatedPins["Street Right"].digitalWrite(0)
     }
     const sprinkerStatus = getStatus()
     socket.emit("sprinkler status", sprinkerStatus);
 
-    return activatedPins.streetRight.digitalWrite(1)
+    return activatedPins["Street Right"].digitalWrite(1)
 
   })
   socket.on("MailBox Strip", newStatus => {
 
-    const turnOff = newStatus === false;
+    const turnOff = newStatus !== false;
     if (turnOff) {
-      return activatedPins.mailBoxStrip.digitalWrite(0)
+      return activatedPins["MailBox Strip"].digitalWrite(0)
     }
     const sprinkerStatus = getStatus()
     socket.emit("sprinkler status", sprinkerStatus);
 
-    return activatedPins.mailBoxStrip.digitalWrite(1)
+    return activatedPins["MailBox Strip"].digitalWrite(1)
 
   })
   // SPRINKLERS END
 
-  socket.on("circle-drag", info => {
+  socket.on("circle-drag", (info = {x:0, y:0}) => {
     // console.log(info, "ifo");
     const newInfo = info
     const xNegative = newInfo.x && newInfo.x < 0;
